@@ -1,103 +1,183 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+import { useTheme } from "@/contexts/ThemeContext"
+import { useProducts } from "@/hooks/useProducts"
+import { ProductCard } from "@/components/ProductCard"
+import { Layout } from "@/components/Layout"
+import { Package, TrendingUp, Users } from "lucide-react"
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+export default function HomePage() {
+  const { currentTheme } = useTheme()
+  const { products, loading, error } = useProducts()
+
+  const containerStyles = {
+    theme1: "container mx-auto px-4 py-8",
+    theme2: "px-8 py-12",
+    theme3: "container mx-auto px-6 py-12",
+  }
+
+  const gridStyles = {
+    theme1: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6",
+    theme2: "grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8",
+    theme3: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8",
+  }
+
+  const sidebar =
+    currentTheme.layout === "sidebar" ? (
+      <div className="p-6">
+        <h3
+          className="text-lg font-bold mb-6"
+          style={{
+            color: currentTheme.colors.text,
+            fontFamily: currentTheme.fonts.primary,
+          }}
+        >
+          Dashboard
+        </h3>
+
+        <div className="space-y-4">
+          {[
+            { icon: Package, label: "Products", value: "1,234" },
+            { icon: Users, label: "Customers", value: "5,678" },
+            { icon: TrendingUp, label: "Revenue", value: "$12,345" },
+          ].map((item, index) => (
+            <div
+              key={index}
+              className="p-4 rounded-lg transition-all duration-300"
+              style={{ backgroundColor: currentTheme.colors.background }}
+            >
+              <div className="flex items-center space-x-3">
+                <item.icon className="w-5 h-5" style={{ color: currentTheme.colors.primary }} />
+                <div>
+                  <p className="text-sm" style={{ color: currentTheme.colors.secondary }}>
+                    {item.label}
+                  </p>
+                  <p className="font-bold" style={{ color: currentTheme.colors.text }}>
+                    {item.value}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+      </div>
+    ) : undefined
+
+  return (
+    <Layout sidebar={sidebar}>
+      <div className={containerStyles[currentTheme.id]}>
+        {/* Hero Section */}
+        <div className="text-center mb-12 relative">
+          {/* Particles Effect for Theme 3 */}
+          {currentTheme.id === "theme3" && (
+            <div className="particles">
+              {[...Array(20)].map((_, i) => (
+                <div
+                  key={i}
+                  className="particle"
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    animationDelay: `${Math.random() * 8}s`,
+                    color: currentTheme.colors.accent,
+                  }}
+                />
+              ))}
+            </div>
+          )}
+
+          <h1
+            className={`${
+              currentTheme.id === "theme3" ? "text-5xl" : "text-4xl"
+            } font-bold mb-4 transition-all duration-500 ${
+              currentTheme.id === "theme1" ? "typewriter" : "animate-bounce-in"
+            }`}
+            style={{
+              color: currentTheme.colors.text,
+              fontFamily: currentTheme.fonts.primary,
+            }}
+          >
+            Welcome to ThemeSwitcher
+          </h1>
+
+          <p
+            className={`${
+              currentTheme.id === "theme2" ? "text-xl" : "text-lg"
+            } max-w-2xl mx-auto transition-all duration-500 animate-slide-in-left animate-delay-200`}
+            style={{
+              color: currentTheme.colors.secondary,
+              fontFamily: currentTheme.fonts.secondary,
+            }}
+          >
+            Experience the power of dynamic theming with our advanced React application. Switch between themes and watch
+            the entire interface transform seamlessly.
+          </p>
+
+          <button
+            className={`mt-6 px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover-glow hover-wiggle animate-bounce-in animate-delay-400 ${
+              currentTheme.id === "theme3" ? "text-lg" : ""
+            }`}
+            style={{
+              backgroundColor: currentTheme.colors.primary,
+              color: currentTheme.colors.background,
+            }}
+          >
+            Get Started
+          </button>
+
+          {/* Animated Background for Theme 2 */}
+          {currentTheme.id === "theme2" && (
+            <div className="absolute inset-0 -z-10 dark-gradient-bg opacity-20 rounded-2xl"></div>
+          )}
+
+          {/* Animated Background for Theme 3 */}
+          {currentTheme.id === "theme3" && (
+            <div className="absolute inset-0 -z-10 gradient-bg opacity-30 rounded-3xl"></div>
+          )}
+        </div>
+
+        {/* Products Section */}
+        <section>
+          <h2
+            className={`${
+              currentTheme.id === "theme3" ? "text-3xl" : "text-2xl"
+            } font-bold mb-8 text-center transition-all duration-500 animate-slide-in-right animate-delay-300`}
+            style={{
+              color: currentTheme.colors.text,
+              fontFamily: currentTheme.fonts.primary,
+            }}
+          >
+            Featured Products
+          </h2>
+
+          {loading && (
+            <div className="flex justify-center items-center py-12">
+              <div className="spinner" style={{ color: currentTheme.colors.primary }}></div>
+            </div>
+          )}
+
+          {error && (
+            <div
+              className="text-center py-12 px-4 rounded-lg"
+              style={{
+                backgroundColor: currentTheme.colors.surface,
+                color: currentTheme.colors.text,
+              }}
+            >
+              <p>Error loading products: {error}</p>
+            </div>
+          )}
+
+          {!loading && !error && (
+            <div className={`${gridStyles[currentTheme.id]} animate-slide-in-left animate-delay-500`}>
+              {products.map((product, index) => (
+                <div key={product.id} className={`animate-bounce-in animate-delay-${Math.min((index + 1) * 100, 500)}`}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
+          )}
+        </section>
+      </div>
+    </Layout>
+  )
 }
