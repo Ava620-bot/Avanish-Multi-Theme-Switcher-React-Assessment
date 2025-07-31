@@ -47,7 +47,7 @@ A sophisticated React application showcasing advanced theming capabilities with 
 
 1. Clone the repository:
 \`\`\`bash
-git clone https://github.com/Ava620-bot/multi-theme-switcher.git
+git clone https://github.com/Ava620-bot/Avanish-Multi-Theme-Switcher-React-Assessment
 cd multi-theme-switcher
 \`\`\`
 
