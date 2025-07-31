@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-
+import Image from "next/image"
 import { useTheme } from "@/contexts/ThemeContext"
 import type { Product } from "@/hooks/useProducts"
 import { Star, ShoppingCart } from "lucide-react"
@@ -25,9 +25,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       style={{ borderColor: currentTheme.colors.primary + "20" }}
     >
       <div className="aspect-square overflow-hidden relative">
-        <img
+        <Image
           src={product.image || "/placeholder.svg"}
           alt={product.title}
+          width={400}
+          height={400}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
         />
 

@@ -113,7 +113,7 @@ export const Header = () => {
                 color: currentTheme.colors.background,
               }}
             >
-              <span className="font-medium hidden md:block">{currentTheme.name}</span>
+              <span className="font-medium">{currentTheme.name}</span>
               <ChevronDown
                 className={`w-4 h-4 transition-transform duration-300 ${isDropdownOpen ? "rotate-180" : ""}`}
               />

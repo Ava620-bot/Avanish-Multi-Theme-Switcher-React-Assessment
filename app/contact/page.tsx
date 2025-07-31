@@ -82,7 +82,8 @@ export default function ContactPage() {
                 fontFamily: currentTheme.fonts.secondary,
               }}
             >
-              Have questions about our theme switcher? Want to collaborate on a project? We'd love to hear from you!
+              Have questions about our theme switcher? Want to collaborate on a project? We&apos;d love to hear from
+              you!
             </p>
           </div>
 
